@@ -1,0 +1,69 @@
+
+<div class="newProjectCreate">
+  <div class="mane">
+    <form (ngSubmit)="onSubmit()"  class="example-form">
+
+
+      <table  class="example-full-width" cellspacing="0"><tr>
+        <tr>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Indicator Name</mat-label>
+            <input [(ngModel)]="indicator.indicatorName" id="indicatorName"name="indicatorName" matInput placeholder="Enter Indicator Name" value="">
+          </mat-form-field>
+        </tr>
+        <tr>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Indicator Description</mat-label>
+            <textarea [(ngModel)]="indicator.indicatorDesc" id="indicatorDesc" name="indicatorDesc" matInput placeholder="Enter Indicator Description Here" value=""></textarea>
+          </mat-form-field>
+        </tr>
+        <tr>
+          <!--      select-->
+          <mat-form-field appearance="fill">
+            <mat-label>Select Parent Indicator </mat-label>
+            <mat-select disableRipple [(ngModel)]="indicator.indicatorParent" id="indicatorParent" name="indicatorParent">
+              <mat-option value="1">JAFFNA</mat-option>
+              <mat-option value="2">MULLAITIVU</mat-option>
+              <mat-option value="3">KILLINOCHCHI</mat-option>
+              <mat-option value="3">VAVUNIYA</mat-option>
+              <mat-option value="3">MANNAR</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </tr>
+
+        <tr>
+          <!--      clips-->
+          <mat-form-field class="example-chip-list">
+            <mat-label>Indicator Classification</mat-label>
+            <mat-chip-list #chipList aria-label="Classification selection">
+              <mat-chip
+                *ngFor="let classification1 of classification"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(classification1)">
+                {{classification1}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="New classification..."
+                #classificationInput
+                [formControl]="classificationCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let classification1 of filteredClassification | async" [value]="classification1">
+                {{classification1}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </tr>
+      </table>
+      <button  class="back-btn" mat-button>Back</button>
+      <button class="create_btn" type="submit" mat-button>Create</button>
+    </form>
+  </div>
+</div>

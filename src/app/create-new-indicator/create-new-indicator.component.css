@@ -1,0 +1,31 @@
+
+.newProjectCreate{
+  max-width: 250px;
+  padding: 10px;
+}
+
+.example-chip-list {
+  width: 100%;
+}
+.example-form {
+  min-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+.create_btn{
+  background: green;
+  align-content: center;
+  left: 5px;
+}
+
+.back-btn{
+  background: #899189;
+  align-content: center;
+}

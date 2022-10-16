@@ -1,0 +1,131 @@
+<article class="table-header">
+  <div>
+    <i>First Name is required | Must have a valid Email Address</i>
+  </div>
+  <div>
+    <button
+      class="button-remove-rows"
+      mat-button
+      (click)="removeSelectedRows()"
+    >
+      Remove Rows
+    </button>
+    <button class="button-add-row" mat-button (click)="addRow()">
+      Add Row
+    </button>
+  </div>
+
+<!--  filter-->
+  <mat-form-field appearance="standard">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+</article>
+
+
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+    <th  class="table_head" mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ col.label }}
+    </th>
+
+    <td class="table_details" mat-cell *matCellDef="let element">
+      <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
+        <ng-container *ngSwitchCase="'isSelected'">
+          <mat-checkbox
+            (change)="element.isSelected = $event.checked"
+          ></mat-checkbox>
+        </ng-container>
+
+        <div class="btn-edit" *ngSwitchCase="'isEdit'">
+          <button mat-button class="copy_button">
+            <mat-icon>file_copy</mat-icon>
+          </button>
+
+          <button mat-button class="comment-icon">
+            <mat-icon>comment</mat-icon>
+          </button>
+          <button mat-button class="info-icon">
+            <mat-icon>info</mat-icon>
+          </button>
+          <button mat-button (click)="element.isEdit = !element.isEdit">
+            Edit
+          </button>
+
+          <button
+            mat-button
+            class="button-remove"
+            (click)="removeRow(element.id)"
+          >
+            Delete
+
+          </button>
+
+
+        </div>
+
+        <span *ngSwitchCase="'date'">
+          {{ element[col.key] | date: 'mediumDate' }}
+        </span>
+        <span *ngSwitchDefault>
+          {{ element[col.key] }}
+        </span>
+      </div>
+      <div [ngSwitch]="col.type" *ngIf="element.isEdit">
+        <div *ngSwitchCase="'isSelected'"></div>
+        <div class="btn-edit" *ngSwitchCase="'isEdit'">
+          <button
+            mat-button
+            (click)="editRow(element)"
+            [disabled]="disableSubmit(element.id)"
+          >
+            Done
+          </button>
+        </div>
+
+        <mat-form-field
+          class="form-input"
+          *ngSwitchCase="'date'"
+          appearance="fill"
+        >
+
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="element[col.key]"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="form-input" *ngSwitchDefault>
+          <input
+            matInput
+            [required]="col.required"
+            [pattern]="col.pattern"
+            [type]="col.type"
+            [(ngModel)]="element[col.key]"
+            (change)="inputHandler($event, element.id, col.key)"
+          />
+        </mat-form-field>
+      </div>
+
+      <mat-slide-toggle color="primary" *ngIf="col.key=='isPublic'">
+      </mat-slide-toggle>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns">
+    <td *ngIf="row.key=='isPublic'">
+
+    </td>
+
+  </tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+  </tr>
+</table>

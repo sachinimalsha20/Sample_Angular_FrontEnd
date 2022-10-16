@@ -1,0 +1,92 @@
+.page {
+  color: white;
+  padding: 0 1rem;
+  background: #f1f5f9;
+}
+.page__box {
+  min-height: 120px;
+  background: #1e293b;
+  margin: 0 -1rem;
+  font-size: 36px;
+}
+.page__content {
+  min-height: calc(100vh - 178px);
+  border-radius: 10px;
+  margin-top: -2rem;
+  background: white;
+  color: black;
+  font-size: 2rem;
+}
+.page__content-data {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/*============================*/
+p {
+  font-family: Lato;
+}
+table {
+  width: 90%;
+  margin: auto;
+  margin-top: 25px;
+}
+.btn-edit {
+  text-align: right;
+}
+h2 {
+  text-align: center;
+  padding-top: 20px;
+}
+.table-header {
+  width: 90%;
+  margin: auto;
+  text-align: right;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.button-add-row {
+  background: #95a5a6;
+  color: #ffffff;
+}
+.button-remove-rows {
+  background: #c0392b;
+  color: #ffffff;
+  margin-right: 5px;
+}
+.button-remove {
+  color: #c0392b;
+}
+
+::ng-deep .mat-form-field-infix {
+  width: 100% !important;
+}
+.form-input {
+  padding-right: 5px;
+}
+
+/*=========icons===============*/
+.comment-icon{
+  color: #1e3799;
+}
+.comment-icon:hover{
+  color: #1e293b;
+}
+.info-icon{
+  color: #FFC312;
+}.info-icon:hover{
+  color: #EE5A24;
+ }
+
+.table_head{
+   background: #0f172a;
+  color: #ecf0f1;
+  font-size: 16px;
+  font-weight: 500;
+}
+.table_details{
+  background: #ecf0f1;
+
+}
